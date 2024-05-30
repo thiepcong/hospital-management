@@ -49,3 +49,13 @@ class EmployeeDetail(APIView):
         
         employee.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class EmployeeSearch(APIView):
+    def get(self, request):
+        name = request.query_params.get('name')
+        if name:
+            patients = Employee.objects.filter(name__icontains=name)
+        else:
+            patients = Employee.objects.all()
+        serializer = EmployeeSerializer(patients, many=True)
+        return Response(serializer.data)

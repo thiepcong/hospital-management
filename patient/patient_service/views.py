@@ -49,3 +49,13 @@ class PatientDetail(APIView):
         
         patient.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class PatientSearch(APIView):
+    def get(self, request):
+        name = request.query_params.get('name')
+        if name:
+            patients = Patient.objects.filter(name__icontains=name)
+        else:
+            patients = Patient.objects.all()
+        serializer = PatientSerializer(patients, many=True)
+        return Response(serializer.data)
