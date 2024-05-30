@@ -51,6 +51,16 @@ class MedicineDetail(APIView):
         medicine.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class MedicineSearch(APIView):
+    def get(self, request):
+        name = request.query_params.get('name')
+        if name:
+            medicines = Medicine.objects.filter(name__icontains=name)
+        else:
+            medicines = Medicine.objects.all()
+        serializer = MedicineSerializer(medicines, many=True)
+        return Response(serializer.data)
+
 class MedicalSupplyListCreate(APIView):
     def get(self, request):
         medical_supplies = MedicalSupply.objects.all()
@@ -94,3 +104,13 @@ class MedicalSupplyDetail(APIView):
         
         medical_supply.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class MedicalSupplySearch(APIView):
+    def get(self, request):
+        name = request.query_params.get('name')
+        if name:
+            medicalSupplies = MedicalSupply.objects.filter(name__icontains=name)
+        else:
+            medicalSupplies = Medicine.objects.all()
+        serializer = MedicalSupplySerializer(medicalSupplies, many=True)
+        return Response(serializer.data)

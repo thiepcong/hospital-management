@@ -6,7 +6,8 @@ class Medicine(models.Model):
     description = models.TextField()
     quantity = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-
+    class Meta:
+        db_table = 'medicine'
     def __str__(self):
         return self.name
 
@@ -15,6 +16,7 @@ class MedicalSupply(models.Model):
     description = models.TextField()
     quantity = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-
+    class Meta:
+        db_table = 'medical_supply'
     def __str__(self):
         return self.name
