@@ -19,7 +19,7 @@ ports = [
     8004, 
     8005, 
     8006,
-    8007cd 
+    8007
 ]
 
 # Run each project
