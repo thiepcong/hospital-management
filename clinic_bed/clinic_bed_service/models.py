@@ -17,3 +17,12 @@ class Bed(models.Model):
 
     def __str__(self):
         return f"Bed {self.bed_number} at {self.clinic.name}"
+
+class BedPatient(models.Model):
+    bed = models.ForeignKey(Bed, on_delete=models.CASCADE)
+    patient_id = models.IntegerField()
+    date_occupied = models.DateField()
+    date_vacated = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Bed {self.bed.bed_number} at {self.bed.clinic.name} occupied by Patient ID {self.patient_id}"

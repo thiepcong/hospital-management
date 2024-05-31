@@ -1,12 +1,16 @@
 from rest_framework import serializers
-from .models import Clinic, Bed
+from .models import Clinic, Bed, BedPatient
 
 class ClinicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clinic
-        fields = ['id', 'name', 'location', 'total_beds', 'occupied_beds']
+        fields = "__all__"
 
 class BedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bed
-        fields = ['id', 'clinic', 'bed_number', 'is_occupied']
+        fields = "__all__"
+class BedPatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BedPatient
+        fields = "__all__"

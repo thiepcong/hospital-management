@@ -7,7 +7,7 @@ services = [
     'appointment',
     'doctor',
     'employee',
-    'clinic',
+    'clinic_bed',
     'pharmacy',
     'invoice'
 ]

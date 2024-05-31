@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_pharmacy',
         'USER': 'root',
-        'PASSWORD': 'ptit_15092002',
+        'PASSWORD': '12345678',
         'HOST': 'localhost',
         'PORT': '3306'
     }

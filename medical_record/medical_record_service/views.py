@@ -33,9 +33,15 @@ class MedicalRecordDetail(APIView):
             medical_record = MedicalRecord.objects.get(pk=pk)
         except MedicalRecord.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+        patient_service_url = f'http://127.0.0.1:8000/api/patients/{medical_record.patient_id}/'
+        patient_response = requests.get(patient_service_url)
         
+        if patient_response.status_code != 200:
+            return Response({"error": "Patient does not exist"}, status=status.HTTP_404_NOT_FOUND)
         serializer = MedicalRecordSerializer(medical_record)
-        return Response(serializer.data)
+        data = serializer.data
+        data['patient'] = patient_response.json()
+        return Response(data)
 
     def put(self, request, pk):
         try:
