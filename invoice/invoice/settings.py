@@ -77,10 +77,12 @@ WSGI_APPLICATION = 'invoice.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME':'db_employee',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'db_invoice',
+        'USER': 'root',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
-        'PORT': 27017,
+        'PORT': '3306'
     }
 }
 
