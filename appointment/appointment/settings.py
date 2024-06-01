@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'appointment.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME':'db_employee',
+        'NAME':'db_appointment',
         'HOST': 'localhost',
         'PORT': 27017,
     }

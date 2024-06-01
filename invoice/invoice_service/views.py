@@ -10,6 +10,47 @@ MEDICAL_SUPPLY_API = "http://127.0.0.1:8006/api/medical_supplies/"
 MEDICINE_API = "http://127.0.0.1:8006/api/medicines/"
 EMPLOYEE_ENDPOINT = "http://127.0.0.1:8004/api/employees/"
 # Create your views here.
+
+class PaymentAPIView(APIView):
+
+    def get(self, request, format=None):
+        payments = Payment.objects.all()
+        serializer = PaymentSerializer(payments, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = PaymentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PaymentDetailAPIView(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Payment.objects.get(pk=pk)
+        except Payment.DoesNotExist:
+            return Response({"error": "Invoice not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk, format=None):
+        payment = self.get_object(pk)
+        serializer = PaymentSerializer(payment)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        payment = self.get_object(pk)
+        serializer = PaymentSerializer(payment, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        payment = self.get_object(pk)
+        payment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 class InvoiceAPIView(APIView):
     def get(self, request, invoice_id):
         try:
